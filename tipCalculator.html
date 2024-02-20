@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tip Calculator</title>
+  <!-- <link rel="stylesheet" href="tipCalculatorStyling.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            height: 100vh; /* Make the gradient cover the entire viewport height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff; /* Set text color to white or another suitable color */
+        }
+
+        header {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for the banner */
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 0;
+        }
+        /* Add your preferred background image */
+        body {
+            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Iowa_State_Cyclones_logo.svg/380px-Iowa_State_Cyclones_logo.svg.png') no-repeat; /* Use repeat to create multiple instances */
+            background-size: 20%; /* Adjust the size of the background image */
+            background-color:beige;
+        }
+
+        /* Animation */
+        @keyframes moveBackground {
+            0% { background-position: 50% 0%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 50% 100%; }
+            75% { background-position: 0% 50%; }
+            100% { background-position: 50% 0%; }
+        }
+
+        /* Apply the animation to the body */
+        body {
+            animation: moveBackground 10s linear infinite; /* You can adjust the duration and timing function */
+        }
+
+        h1 {
+            font-size: 2em;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ffd900, #e52e71);
+            -webkit-background-clip: text; /* For Safari/Chrome */
+            background-clip: text;
+            color: transparent; /* Set text color to transparent */
+        }
+        .tipResult {
+            color: #FF0000; /* Set the color to red for the tip details */
+        }
+    </style>
+</head>
+<body>
+    <a class="navbar-brand" href="#"; style="color:#ff8a00; font-size: xxx-large; float:right;">ISU Dining</a>
+    <!-- Bootstrap Navbar -->
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <!-- <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="tipCalculator.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="menu.html">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact</a>
+                </li>
+            </ul> -->
+        </div>
+    </nav>
+
+        <!-- Tip Calculator Form -->
+        <form id="tipForm" onsubmit="calculateTip(); return false;" class="text-center">
+            <div class="form-group">
+                <label for="billAmount"; style="color:#FF0000">Bill Amount ($):</label>
+                <input type="number" class="form-control" id="billAmount" required>
+            </div>
+            <div class="form-group">
+                <label for="serviceRating"; style="color:#FF0000">Service Quality (1-10):</label>
+                <input type="number" class="form-control" id="serviceRating" min="1" max="10" required>
+            </div>
+            <div class="form-group">
+                <label for="customTip"; style="color:#FF0000">Custom Tip (%):</label>
+                <input type="number" class="form-control" id="customTip">
+            </div>
+            <button type="submit" class="btn btn-primary">Calculate Tip</button>
+        </form>
+
+        <!-- Tip Result Section -->
+        <div id="tipResult" class="mt-4 tipResult" style="display: none;text-align: center;">
+            <h4>Tip Details:</h4>
+            <p id="restaurantName">Restaurant: ISU Dining</p>
+            <p id="billAmountResult">Cost of Meal: $0.00</p>
+            <p id="serviceRatingResult">Service Quality: 0</p>
+            <p id="tipAmountResult">Tip Amount: $0.00</p>
+            <p id="totalAmountResult">Total with Tip: $0.00</p>
+
+            <form action="tipCalculator.html">
+                <button type="submit" class="btn btn-primary mt-3">BACK</button>
+            </form>
+        </div>
+
+    <!-- Link Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function goBack() {
+        // Show the tip form and hide the tip result
+        document.getElementById('tipForm').style.display = 'block';
+        document.getElementById('tipResult').style.display = 'none';
+        }
+
+        function calculateTip() {
+            // Get form values
+            var billAmount = parseFloat(document.getElementById('billAmount').value);
+            var serviceRating = parseInt(document.getElementById('serviceRating').value);
+            var customTip = parseFloat(document.getElementById('customTip').value) || 0;
+
+            // Validate form inputs
+            if (isNaN(billAmount) || isNaN(serviceRating)) {
+                alert('Please fill out all fields with valid values.');
+                return;
+            }
+
+            if (customTip > 0 && customTip <= 10) {
+                var tipPercentage = 10;
+            } else if (customTip > 10) {
+                tipPercentage = customTip
+            }
+
+            // // Calculate tip based on service quality (minimum 10%)
+            // var tipPercentage = Math.max(10, serviceRating) + customTip;
+            var tipAmount = (billAmount * tipPercentage) / 100;
+
+            // Calculate total amount with tip
+            var totalAmount = billAmount + tipAmount;
+
+            // Display tip details
+            document.getElementById('restaurantName').innerText = 'Restaurant: Friley Windows';
+            document.getElementById('billAmountResult').innerText = 'Cost of Meal: $' + billAmount.toFixed(2);
+            document.getElementById('serviceRatingResult').innerText = 'Service Quality: ' + serviceRating;
+            document.getElementById('tipAmountResult').innerText = 'Tip Amount: $' + tipAmount.toFixed(2);
+            document.getElementById('totalAmountResult').innerText = 'Total with Tip: $' + totalAmount.toFixed(2);
+
+            // Hide form and show tip result
+            document.getElementById('tipForm').style.display = 'none';
+            document.getElementById('tipResult').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
