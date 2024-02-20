@@ -5,68 +5,58 @@
   <title>Tip Calculator</title>
   <!-- <link rel="stylesheet" href="tipCalculatorStyling.css"> -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(45deg, #ff8a00, #e52e71);
-            height: 100vh; /* Make the gradient cover the entire viewport height */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #fff; /* Set text color to white or another suitable color */
-        }
+  <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background: linear-gradient(45deg, #ff8a00, #e52e71), url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Iowa_State_Cyclones_logo.svg/380px-Iowa_State_Cyclones_logo.svg.png') no-repeat;
+        background-size: 20%, cover;
+        background-color: beige;
+        position: relative;
+        animation: zoomBackground 10s linear infinite;
+    }
 
-        header {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background for the banner */
-            padding: 10px 0;
-            text-align: center;
+    @keyframes zoomBackground {
+        0% {
+            background-size: 20% 20%;
+            background-position: 50% 50%;
         }
+        100% {
+            background-size: 120% 120%;
+            background-position: 50% 50%;
+        }
+    }
 
-        h1 {
-            font-size: 3em;
-            font-weight: bold;
-            margin: 0;
-        }
-        /* Add your preferred background image */
-        body {
-            background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Iowa_State_Cyclones_logo.svg/380px-Iowa_State_Cyclones_logo.svg.png') no-repeat; /* Use repeat to create multiple instances */
-            background-size: 20%; /* Adjust the size of the background image */
-            background-color:beige;
-        }
+    h1 {
+        font-size: 2em;
+        font-weight: bold;
+        background: linear-gradient(45deg, #ffd900, #e52e71);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
 
-        /* Animation */
-        @keyframes moveBackground {
-            0% { background-position: 50% 0%; }
-            25% { background-position: 100% 50%; }
-            50% { background-position: 50% 100%; }
-            75% { background-position: 0% 50%; }
-            100% { background-position: 50% 0%; }
-        }
+    .tipResult {
+        color: #FF0000;
+    }
 
-        /* Apply the animation to the body */
-        body {
-            animation: moveBackground 10s linear infinite; /* You can adjust the duration and timing function */
-        }
-
-        h1 {
-            font-size: 2em;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ffd900, #e52e71);
-            -webkit-background-clip: text; /* For Safari/Chrome */
-            background-clip: text;
-            color: transparent; /* Set text color to transparent */
-        }
-        .tipResult {
-            color: #FF0000; /* Set the color to red for the tip details */
-        }
-    </style>
+    /* Additional styles to center the form */
+    #tipForm {
+        max-width: 400px;
+        margin: auto;
+    }
+</style>
 </head>
 <body>
-    <a class="navbar-brand" href="#"; style="color:#ff8a00; font-size: xxx-large; float:right;">ISU Dining</a>
+    <h1 style="color:#0800ff; text-align: center;text-align: center; margin-top: 10%;"><strong>ISU Restaurants</strong></h1>
+    <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Iowa_State_Cyclones_logo.svg/380px-Iowa_State_Cyclones_logo.svg.png" style="height:20%; margin-top: 4%;margin-bottom: 1%;"alt="IASTATE">
     <!-- Bootstrap Navbar -->
     <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
         
@@ -91,15 +81,15 @@
         <!-- Tip Calculator Form -->
         <form id="tipForm" onsubmit="calculateTip(); return false;" class="text-center">
             <div class="form-group">
-                <label for="billAmount"; style="color:#FF0000; font-size: large;">Bill Amount ($):</label>
+                <label for="billAmount"; style="color:#0800ff; font-size: large;"><strong>Bill Amount ($):</strong></label>
                 <input type="number" class="form-control" id="billAmount" required>
             </div>
             <div class="form-group">
-                <label for="serviceRating"; style="color:#FF0000;font-size: large;">Service Quality (1-10):</label>
+                <label for="serviceRating"; style="color:#0800ff;font-size: large;"><strong>Service Quality (1-10):</strong></label>
                 <input type="number" class="form-control" id="serviceRating" min="1" max="10" required>
             </div>
             <div class="form-group">
-                <label for="customTip"; style="color:#FF0000;font-size: large;">Custom Tip (%):</label>
+                <label for="customTip"; style="color:#0800ff;font-size: large;"><strong>Custom Tip (%):</strong></label>
                 <input type="number" class="form-control" id="customTip">
             </div>
             <button type="submit" class="btn btn-primary">Calculate Tip</button>
@@ -107,17 +97,17 @@
 
         <!-- Tip Result Section -->
         <div id="tipResult" class="mt-4 tipResult" style="display: none;text-align: center;">
-            <h4>Tip Details:</h4>
-            <p id="restaurantName">Restaurant: ISU Dining</p>
-            <p id="billAmountResult">Cost of Meal: $0.00</p>
-            <p id="serviceRatingResult">Service Quality: 0</p>
-            <p id="tipAmountResult">Tip Amount: $0.00</p>
-            <p id="totalAmountResult">Total with Tip: $0.00</p>
+        <h2 style="color:#0800ff">Tip Details:</h2>
+        <p id="restaurantName" style="color:#0800ff; font-size: large;"><strong>Restaurant:</strong> <em>ISU Dining</em></p>
+        <p id="billAmountResult" style="color:#0800ff; font-size: large;"><strong>Cost of Meal:</strong> <em>$0.00</em></p>
+        <p id="serviceRatingResult" style="color:#0800ff; font-size: large;"><strong>Service Quality:</strong><em>0</em></p>
+        <p id="tipAmountResult" style="color:#0800ff; font-size: large;"><strong>Tip Amount:</strong> <em>$0.00</em></p>
+        <p id="totalAmountResult" style="color:#0800ff; font-size: large;"><strong>Total with Tip:</strong> <em>$0.00</em>>
 
-            <form action="tipCalculator.html">
-                <button type="submit" class="btn btn-primary mt-3">BACK</button>
-            </form>
-        </div>
+        <form action="tipCalculator.html">
+            <button type="submit" class="btn btn-primary mt-3">BACK</button>
+        </form>
+    </div>
 
     <!-- Link Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
